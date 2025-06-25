@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light"> 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artist Portfolio</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@^19.1.0",
+      "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+      "react-router-dom": "https://esm.sh/react-router-dom@^7.6.2",
+      "react/": "https://esm.sh/react@^19.1.0/"
+    }
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com?plugins=typography,aspect-ratio,forms"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class', // Enable class-based dark mode for theme-dark
+      theme: {
+        extend: {
+          colors: {
+            // These will be overridden by CSS variables but can serve as fallbacks or for JIT
+            'brand-primary-default': '#00BFFF', 
+            'brand-secondary-default': '#FF69B4',
+            'brand-accent-default': '#9370DB',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Orbitron', 'sans-serif'],
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+            fadeInUp: { 
+              '0%': { opacity: '0', transform: 'translateY(20px)' }, 
+              '100%': { opacity: '1', transform: 'translateY(0)' } 
+            },
+            scaleIn: { 
+              '0%': { opacity: '0', transform: 'scale(0.9)' }, 
+              '100%': { opacity: '1', transform: 'scale(1)' } 
+            },
+            slideInFromLeft: { 
+              '0%': { opacity: '0', transform: 'translateX(-30px)' }, 
+              '100%': { opacity: '1', transform: 'translateX(0)' } 
+            },
+            slideInFromRight: { 
+              '0%': { opacity: '0', transform: 'translateX(30px)' }, 
+              '100%': { opacity: '1', transform: 'translateX(0)' } 
+            },
+            animatedBackgroundEffect: {
+              '0%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+              '100%': { backgroundPosition: '0% 50%' },
+            },
+             blink: {
+              '50%': { borderColor: 'transparent' }
+            }
+          },
+          animation: {
+            fadeIn: 'fadeIn 0.5s ease-out forwards',
+            fadeInUp: 'fadeInUp 0.5s ease-out forwards',
+            scaleIn: 'scaleIn 0.5s ease-out forwards',
+            slideInFromLeft: 'slideInFromLeft 0.5s ease-out forwards',
+            slideInFromRight: 'slideInFromRight 0.5s ease-out forwards',
+            animatedBackgroundEffect: 'animatedBackgroundEffect 45s ease infinite alternate',
+            blink: 'blink 1s infinite step-end'
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap');
+
+    :root {
+      /* Light Theme (Default) */
+      --theme-bg: #F9FAFB; /* Light Gray */
+      --theme-text-primary: #1F2937; /* Dark Gray */
+      --theme-text-secondary: #4B5563; /* Medium Gray */
+      --theme-border: #E5E7EB; /* Lighter Gray */
+      --theme-card-bg: #FFFFFF; /* White */
+      --brand-primary: #3B82F6; /* Blue 500 */
+      --brand-secondary: #EC4899; /* Pink 500 */
+      --brand-accent: #8B5CF6; /* Violet 500 */
+      
+      --input-bg: var(--theme-card-bg);
+      --input-border: var(--theme-border);
+      --input-text: var(--theme-text-primary);
+      --input-focus-ring: var(--brand-primary);
+      --dropdown-arrow-color: var(--brand-primary);
+
+      /* Gradients */
+      --theme-bg-gradient: linear-gradient(135deg, #E0E7FF, #EFF6FF);
+      /* --theme-hero-bg-gradient: linear-gradient(135deg, #BFDBFE, #DBEAFE); Removed, will be image based */
+      --theme-hero-backdrop-overlay: rgba(249, 250, 251, 0.6); /* Semi-transparent light bg */
+      --theme-card-gradient: linear-gradient(145deg, #FFFFFF, #F9FAFB);
+      --theme-button-primary-gradient: linear-gradient(to right, var(--brand-primary), #60A5FA);
+      --theme-button-secondary-gradient: linear-gradient(to right, var(--brand-secondary), #F472B6);
+      --theme-navbar-scrolled-gradient: linear-gradient(to right, rgba(255,255,255,0.7), rgba(249,250,251,0.7));
+      --theme-accent-underline-gradient: linear-gradient(to right, var(--brand-secondary), var(--brand-accent));
+
+      /* Animated Background Colors - Light */
+      --theme-animated-bg-color-1: #E0E7FF; /* Soft Lavender/Blue */
+      --theme-animated-bg-color-2: #D1FAE5; /* Soft Mint */
+      --theme-animated-bg-color-3: #FEF3C7; /* Soft Yellow/Peach */
+    }
+
+    html.theme-light {
+      /* Ensures defaults apply if :root isn't specific enough or for explicit light theme */
+      --theme-bg: #F9FAFB;
+      --theme-text-primary: #1F2937;
+      --theme-text-secondary: #4B5563;
+      --theme-border: #E5E7EB;
+      --theme-card-bg: #FFFFFF;
+      --brand-primary: #3B82F6;
+      --brand-secondary: #EC4899;
+      --brand-accent: #8B5CF6;
+      --input-bg: var(--theme-card-bg);
+      --input-border: var(--theme-border);
+      --input-text: var(--theme-text-primary);
+      --input-focus-ring: var(--brand-primary);
+      --dropdown-arrow-color: var(--brand-primary);
+
+      --theme-bg-gradient: linear-gradient(135deg, #E0E7FF, #EFF6FF);
+      /* --theme-hero-bg-gradient: linear-gradient(135deg, #BFDBFE, #DBEAFE); */
+      --theme-hero-backdrop-overlay: rgba(249, 250, 251, 0.6);
+      --theme-card-gradient: linear-gradient(145deg, #FFFFFF, #F9FAFB);
+      --theme-button-primary-gradient: linear-gradient(to right, var(--brand-primary), #60A5FA);
+      --theme-button-secondary-gradient: linear-gradient(to right, var(--brand-secondary), #F472B6);
+      --theme-navbar-scrolled-gradient: linear-gradient(to right, rgba(255,255,255,0.7), rgba(249,250,251,0.7));
+      --theme-accent-underline-gradient: linear-gradient(to right, var(--brand-secondary), var(--brand-accent));
+      
+      --theme-animated-bg-color-1: #E0E7FF; 
+      --theme-animated-bg-color-2: #D1FAE5; 
+      --theme-animated-bg-color-3: #FEF3C7; 
+    }
+
+    html.theme-dark {
+      --theme-bg: #111827; /* Dark Gray 900 */
+      --theme-text-primary: #F3F4F6; /* Light Gray 100 */
+      --theme-text-secondary: #9CA3AF; /* Medium Gray 400 */
+      --theme-border: #374151; /* Dark Gray 700 */
+      --theme-card-bg: #1F2937; /* Dark Gray 800 */
+      --brand-primary: #60A5FA; /* Blue 400 */
+      --brand-secondary: #F472B6; /* Pink 400 */
+      --brand-accent: #A78BFA; /* Violet 400 */
+      --input-bg: var(--theme-card-bg);
+      --input-border: var(--theme-border);
+      --input-text: var(--theme-text-primary);
+      --input-focus-ring: var(--brand-primary);
+      --dropdown-arrow-color: var(--brand-primary);
+
+      --theme-bg-gradient: linear-gradient(135deg, #0B1120, #1F2937);
+      /* --theme-hero-bg-gradient: linear-gradient(135deg, #1E3A8A, #374151); */
+      --theme-hero-backdrop-overlay: rgba(17, 24, 39, 0.7); /* Semi-transparent dark bg */
+      --theme-card-gradient: linear-gradient(145deg, #1F2937, #2c3a4f);
+      --theme-button-primary-gradient: linear-gradient(to right, var(--brand-primary), #93C5FD);
+      --theme-button-secondary-gradient: linear-gradient(to right, var(--brand-secondary), #F9A8D4);
+      --theme-navbar-scrolled-gradient: linear-gradient(to right, rgba(31,41,55,0.7), rgba(17,24,39,0.7));
+      --theme-accent-underline-gradient: linear-gradient(to right, var(--brand-secondary), var(--brand-accent));
+      
+      --theme-animated-bg-color-1: #0D1A2E; 
+      --theme-animated-bg-color-2: #253351; 
+      --theme-animated-bg-color-3: #172B4D; 
+    }
+
+    html.theme-sunset {
+      --theme-bg: #4A0404; /* Deep Red-Brown */
+      --theme-text-primary: #FFF7ED; /* Creamy White */
+      --theme-text-secondary: #FFDAB9; /* Peach */
+      --theme-border: #7F1D1D; /* Darker Red */
+      --theme-card-bg: #6B211E; /* Maroon */
+      --brand-primary: #F97316; /* Orange 500 */
+      --brand-secondary: #EF4444; /* Red 500 */
+      --brand-accent: #FDE047; /* Yellow 300 */
+      --input-bg: var(--theme-card-bg);
+      --input-border: var(--theme-border);
+      --input-text: var(--theme-text-primary);
+      --input-focus-ring: var(--brand-primary);
+      --dropdown-arrow-color: var(--brand-primary);
+
+      --theme-bg-gradient: linear-gradient(135deg, #7F1D1D, #B91C1C);
+      /* --theme-hero-bg-gradient: linear-gradient(135deg, #F97316, #DC2626); */
+      --theme-hero-backdrop-overlay: rgba(74, 4, 4, 0.6); /* Semi-transparent deep red */
+      --theme-card-gradient: linear-gradient(145deg, #6B211E, #7f2a2a);
+      --theme-button-primary-gradient: linear-gradient(to right, var(--brand-primary), #FB923C);
+      --theme-button-secondary-gradient: linear-gradient(to right, var(--brand-secondary), #FCA5A5);
+      --theme-navbar-scrolled-gradient: linear-gradient(to right, rgba(107,33,30,0.7), rgba(74,4,4,0.7));
+      --theme-accent-underline-gradient: linear-gradient(to right, var(--brand-secondary), var(--brand-accent));
+      
+      --theme-animated-bg-color-1: #8C2424; 
+      --theme-animated-bg-color-2: #D25A30; 
+      --theme-animated-bg-color-3: #E88C4A; 
+    }
+
+    html.theme-minty {
+      --theme-bg: #F0FDF4; /* Very Light Green */
+      --theme-text-primary: #064E3B; /* Dark Green */
+      --theme-text-secondary: #059669; /* Medium Green */
+      --theme-border: #A7F3D0; /* Light Green */
+      --theme-card-bg: #D1FAE5; /* Pale Green */
+      --brand-primary: #10B981; /* Emerald 500 */
+      --brand-secondary: #34D399; /* Emerald 400 */
+      --brand-accent: #6EE7B7; /* Emerald 300 */
+      --input-bg: var(--theme-card-bg);
+      --input-border: var(--theme-border);
+      --input-text: var(--theme-text-primary);
+      --input-focus-ring: var(--brand-primary);
+      --dropdown-arrow-color: var(--brand-primary);
+
+      --theme-bg-gradient: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+      /* --theme-hero-bg-gradient: linear-gradient(135deg, #6EE7B7, #34D399); */
+      --theme-hero-backdrop-overlay: rgba(209, 250, 229, 0.6); /* Semi-transparent light green */
+      --theme-card-gradient: linear-gradient(145deg, #D1FAE5, #c1f7e0);
+      --theme-button-primary-gradient: linear-gradient(to right, var(--brand-primary), #6EE7B7);
+      --theme-button-secondary-gradient: linear-gradient(to right, var(--brand-secondary), #A7F3D0);
+      --theme-navbar-scrolled-gradient: linear-gradient(to right, rgba(209,250,229,0.7), rgba(240,253,244,0.7));
+      --theme-accent-underline-gradient: linear-gradient(to right, var(--brand-secondary), var(--brand-accent));
+      
+      --theme-animated-bg-color-1: #A7F3D0; 
+      --theme-animated-bg-color-2: #6EE7B7; 
+      --theme-animated-bg-color-3: #34D399; 
+    }
+
+    html.theme-royal {
+      --theme-bg: #2B0B3F; /* Deep Purple */
+      --theme-text-primary: #F3E8FF; /* Light Lavender */
+      --theme-text-secondary: #D8B4FE; /* Lavender */
+      --theme-border: #581C87; /* Darker Purple */
+      --theme-card-bg: #4C1D95; /* Indigo */
+      --brand-primary: #A855F7; /* Purple 500 */
+      --brand-secondary: #C084FC; /* Purple 400 */
+      --brand-accent: #FBCFE8; /* Pink 200 (as gold/silver accent) */
+      --input-bg: var(--theme-card-bg);
+      --input-border: var(--theme-border);
+      --input-text: var(--theme-text-primary);
+      --input-focus-ring: var(--brand-primary);
+      --dropdown-arrow-color: var(--brand-primary);
+
+      --theme-bg-gradient: linear-gradient(135deg, #4C1D95, #581C87);
+      /* --theme-hero-bg-gradient: linear-gradient(135deg, #7E22CE, #9333EA); */
+      --theme-hero-backdrop-overlay: rgba(43, 11, 63, 0.7); /* Semi-transparent deep purple */
+      --theme-card-gradient: linear-gradient(145deg, #4C1D95, #5b2a9e);
+      --theme-button-primary-gradient: linear-gradient(to right, var(--brand-primary), #C084FC);
+      --theme-button-secondary-gradient: linear-gradient(to right, var(--brand-secondary), #E9D5FF);
+      --theme-navbar-scrolled-gradient: linear-gradient(to right, rgba(76,29,149,0.7), rgba(43,11,63,0.7));
+      --theme-accent-underline-gradient: linear-gradient(to right, var(--brand-secondary), var(--brand-accent));
+      
+      --theme-animated-bg-color-1: #581C87; 
+      --theme-animated-bg-color-2: #7E22CE; 
+      --theme-animated-bg-color-3: #A855F7; 
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--theme-text-primary);
+      transition: color 0.3s ease, background 0.5s ease-in-out;
+      background: linear-gradient(
+        -45deg,
+        var(--theme-animated-bg-color-1),
+        var(--theme-animated-bg-color-2),
+        var(--theme-animated-bg-color-3),
+        var(--theme-animated-bg-color-1) 
+      );
+      background-size: 400% 400%;
+      animation: animatedBackgroundEffect 45s ease infinite alternate;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      overflow-x: hidden; /* Prevent horizontal scroll from minor layout shifts */
+    }
+    
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    html.theme-light ::-webkit-scrollbar-track { background: #E5E7EB; }
+    html.theme-dark ::-webkit-scrollbar-track { background: #374151; }
+    html.theme-sunset ::-webkit-scrollbar-track { background: #7F1D1D; }
+    html.theme-minty ::-webkit-scrollbar-track { background: #A7F3D0; }
+    html.theme-royal ::-webkit-scrollbar-track { background: #581C87; }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--brand-secondary);
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--brand-primary);
+    }
+
+    /* Typewriter cursor style */
+    .typewriter-cursor::after {
+      content: '|';
+      animation: blink 1s infinite step-end;
+      color: var(--brand-primary);
+      margin-left: 0.1em;
+    }
+  </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="./index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
