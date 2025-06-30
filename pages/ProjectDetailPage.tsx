@@ -93,7 +93,7 @@ const ProjectDetailPage: React.FC = () => {
       <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-12 items-start mb-12 md:mb-16`}>
         <div 
           ref={perspectiveWrapperRef}
-          style={{ perspective: '1000px' }}
+          style={{ perspective: '1800px' }}
           className="w-full md:w-1/2" // Removed animate-fadeInUp, GSAP can handle if needed
         >
           <div 

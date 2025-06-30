@@ -84,5 +84,32 @@ export const portfolioData: ProjectItem[] = [
     imageUrl: 'https://picsum.photos/seed/neotokyo/600/400',
     tags: ['Environment Art', 'Cyberpunk', 'Blender', 'Cycles'],
     projectUrl: '#'
-  }
+  },
+  {
+    id: 'p7',
+    title: 'Neo-Tokyo Alleyway',
+    description:
+      'A detailed cyberpunk environment with a focus on emissive lighting, reflections, and a gritty atmosphere.',
+    imageUrl: 'https://picsum.photos/seed/neotokyo/600/400',
+    tags: ['Environment Art', 'Cyberpunk', 'Blender', 'Cycles'],
+    projectUrl: '#'
+  },
+  {
+    id: 'p8',
+    title: 'Neo-Tokyo Alleyway',
+    description:
+      'A detailed cyberpunk environment with a focus on emissive lighting, reflections, and a gritty atmosphere.',
+    imageUrl: 'https://picsum.photos/seed/neotokyo/600/400',
+    tags: ['Environment Art', 'Cyberpunk', 'Blender', 'Cycles'],
+    projectUrl: '#'
+  },
+  {
+    id: 'p9',
+    title: 'Neo-Tokyo Alleyway',
+    description:
+      'A detailed cyberpunk environment with a focus on emissive lighting, reflections, and a gritty atmosphere.',
+    imageUrl: 'https://picsum.photos/seed/neotokyo/600/400',
+    tags: ['Environment Art', 'Cyberpunk', 'Blender', 'Cycles'],
+    projectUrl: '#'
+  },
 ];
