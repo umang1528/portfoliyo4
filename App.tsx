@@ -19,7 +19,7 @@ const App: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text-primary)] transition-colors duration-300 ease-in-out">
       <Navbar />
 
-      <main className="flex-grow pt-20 md:pt-24 z-0">
+      <main className="flex-grow pt-0 md:pt-24 z-0">
         {/* Page transition animation wrapper */}
         <div key={location.pathname} className="animate-fadeInUp">
           <Routes>

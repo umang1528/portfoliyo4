@@ -15,6 +15,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       style={{ animationDelay: `${index * 100}ms` }} 
     >
       <div className="flex flex-col flex-grow">
+        <Link
+            to={`/portfolio/${project.id}`}
+            className="mt-auto inline-block text-[var(--brand-secondary)] hover:text-[var(--brand-accent)] font-semibold transition-colors duration-300 group-hover:translate-x-1 transform"
+          >
+
         <div className="relative aspect-video overflow-hidden">
           <img 
             src={project.imageUrl} 
@@ -38,6 +43,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
             View Details &rarr;
           </Link>
         </div>
+          </Link>
       </div>
     </div>
   );

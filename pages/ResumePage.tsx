@@ -3,7 +3,7 @@ import React from 'react';
 import { ResumeEntry } from '../types';
 import SectionTitle from '../components/SectionTitle';
 // import resume from "../assets/Umang_Kumar_Graphic_Designer_Resume.pdf"
-import UmangResume from "../src/assets/Umang_Kumar_Graphic_Designer_Resume.pdf"
+import UmangResume from "../public/assets/images/Umang_Kumar_Graphic_Designer_Resume.pdf"
 
 
 const DownloadIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
@@ -108,7 +108,7 @@ const ResumePage: React.FC = () => {
       <div className="text-center mb-12 animate-fadeInUp" style={{animationDelay: '100ms'}}>
         <a 
           href={UmangResume} 
-          download='resume'
+          download='Umang Kumar'
           className="inline-flex items-center px-6 py-3 bg-[var(--brand-secondary)] text-white font-semibold rounded-lg text-md hover:bg-opacity-80 transition-all duration-300 transform hover:scale-105 shadow-lg"
         >
           <DownloadIcon className="w-5 h-5 mr-2" />
